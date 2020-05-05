@@ -1,24 +1,41 @@
 <template>
   <v-card :width="350">
-    <v-card-title class="headline">Card Title</v-card-title>
+    <!-- Card title -->
+    <v-card-title
+      v-if="!editing"
+      @click="editing = true"
+      class="headline pb-1"
+      >{{ card.title }}</v-card-title
+    >
 
-    <!-- Add Item buttons -->
-    <v-card-actions class="py-0">
+    <v-text-field
+      hide-details
+      autofocus
+      v-if="editing"
+      v-model="card.title"
+      :rules="[value => !!value]"
+      @blur="editing = !card.title"
+      class="headline pa-4 ma-0 pb-1"
+      placeholder="Card title"
+    ></v-text-field>
+
+    <!-- Adding items buttons -->
+    <v-card-actions class="pb-0">
       <v-row justify="space-around">
         <v-btn icon color="grey lighten-1">
-          <v-icon>mdi-check</v-icon>
+          <v-icon small>mdi-check</v-icon>
         </v-btn>
 
         <v-btn icon color="grey lighten-1">
-          <v-icon>mdi-note</v-icon>
+          <v-icon small>mdi-note</v-icon>
         </v-btn>
 
         <v-btn icon color="grey lighten-1">
-          <v-icon>mdi-link</v-icon>
+          <v-icon small>mdi-link</v-icon>
         </v-btn>
 
         <v-btn icon color="grey lighten-1">
-          <v-icon>mdi-image</v-icon>
+          <v-icon small>mdi-image</v-icon>
         </v-btn>
       </v-row>
     </v-card-actions>
@@ -38,6 +55,14 @@ import CardItem from './CardItem'
 export default {
   components: {
     CardItem
+  },
+  data() {
+    return {
+      card: {
+        title: 'Card title'
+      },
+      editing: false
+    }
   }
 }
 </script>
@@ -45,5 +70,8 @@ export default {
 <style scoped>
 .v-checkbox--custom >>> .v-input--selection-controls__input {
   height: 22px;
+}
+.v-card__title:hover {
+  cursor: text;
 }
 </style>
