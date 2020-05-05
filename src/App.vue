@@ -10,11 +10,15 @@
 
 <script>
 import Cards from './components/Cards'
+import cards from './data/cards'
 
 export default {
   name: 'App',
   components: {
     Cards
+  },
+  created() {
+    this.$store.dispatch('setCards', cards)
   }
 }
 </script>

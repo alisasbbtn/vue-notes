@@ -5,18 +5,18 @@
       v-if="!editing"
       @click="editing = true"
       class="headline pb-1"
-      >{{ card.title }}</v-card-title
+      :class="{ 'grey--text text--lighten--1': !card.name.length }"
+      >{{ card.name || 'Card Name' }}</v-card-title
     >
 
     <v-text-field
       hide-details
       autofocus
       v-if="editing"
-      v-model="card.title"
-      :rules="[value => !!value]"
-      @blur="editing = !card.title"
+      :value="card.name"
+      @blur="renameCard"
       class="headline pa-4 ma-0 pb-1"
-      placeholder="Card title"
+      placeholder="Card Name"
     ></v-text-field>
 
     <!-- Adding items buttons -->
@@ -53,15 +53,24 @@
 import CardItem from './CardItem'
 
 export default {
+  props: ['card'],
   components: {
     CardItem
   },
   data() {
     return {
-      card: {
-        title: 'Card title'
-      },
       editing: false
+    }
+  },
+  methods: {
+    renameCard(e) {
+      let value = e.target.value
+
+      this.$store.dispatch('renameCard', {
+        cardId: this.card.id,
+        name: value
+      })
+      this.editing = false
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row>
-      <v-col>
-        <Card />
+      <v-col v-for="(card, index) in cards" :key="index">
+        <Card :card="card" />
       </v-col>
     </v-row>
   </v-container>
@@ -14,6 +14,11 @@ import Card from './Card'
 export default {
   components: {
     Card
+  },
+  computed: {
+    cards() {
+      return this.$store.getters.cards
+    }
   }
 }
 </script>
