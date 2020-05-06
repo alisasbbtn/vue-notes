@@ -41,10 +41,12 @@
     </v-card-actions>
 
     <v-container>
-      <CardItem :type="'to-do'"></CardItem>
-      <CardItem :type="'image'"></CardItem>
-      <CardItem :type="'link'"></CardItem>
-      <CardItem :type="'note'"></CardItem>
+      <CardItem
+        v-for="(item, index) in card.items"
+        :key="index"
+        :item="item"
+        :cardId="card.id"
+      />
     </v-container>
   </v-card>
 </template>
